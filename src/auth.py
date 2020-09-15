@@ -4,8 +4,8 @@ from telethon import TelegramClient
 
 def main():
     parser = EnvArgParser()
-    parser.add_argument('--api-id', env_var='API_ID', required=True, help='user api id', type=str)
-    parser.add_argument('--api-hash', env_var='API_HASH', required=True, help='user api hash', type=str)
+    parser.add_argument('--api-id', env_var='AMKEARAME_API_ID', required=True, help='user api id', type=str)
+    parser.add_argument('--api-hash', env_var='AMKEARAME_API_HASH', required=True, help='user api hash', type=str)
 
     args = parser.parse_args()
 

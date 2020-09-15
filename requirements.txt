@@ -1,1 +1,1 @@
-envargparse==1.0.0names==0.3.0requests==2.24.0telethon==1.16.1thisapidoesnotexist==0.2
+envargparse==1.0.0names==0.3.0requests==2.24.0telethon==1.16.4thisapidoesnotexist==0.2
