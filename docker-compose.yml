@@ -5,8 +5,8 @@ services:
     build:
       context: .
     environment:
-      - AMKEARAME_API_ID=${API_ID}
-      - AMKEARAME_API_HASH=${API_HASH}
-      - AMKEARAME_DELAY=${TIMER}
+      - AMKEARAME_API_ID=${AMKEARAME_API_ID}
+      - AMKEARAME_API_HASH=${AMKEARAME_API_HASH}
+      - AMKEARAME_DELAY=${AMKEARAME_DELAY}
     volumes:
       - ./telegram.session:/app/telegram.session
