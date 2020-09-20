@@ -68,6 +68,8 @@ async def main():
                 amkearame.entity.last_name
             ))
 
+            await client.disconnect()
+
             await asyncio.sleep(args.delay)
         except Exception as e:
             print('[-] {}: {}'.format(datetime.now().strftime('%x %X'), e))
