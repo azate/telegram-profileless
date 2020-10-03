@@ -51,8 +51,9 @@ async def main():
     args = parser.parse_args()
 
     while True:
+        client = TelegramClient('telegram', args.api_id, args.api_hash)
+
         try:
-            client = TelegramClient('telegram', args.api_id, args.api_hash)
             await client.connect()
 
             entity = AmkearameEntity()
@@ -69,9 +70,9 @@ async def main():
             ))
 
             await client.disconnect()
-
             await asyncio.sleep(args.delay)
         except Exception as e:
+            await client.disconnect()
             print('[-] {}: {}'.format(datetime.now().strftime('%x %X'), e))
             continue
 
