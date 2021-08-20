@@ -1,12 +1,22 @@
 version: '3'
 
 services:
-  amkearame:
+  get_session:
     build:
       context: .
+    command: python get_session.py
     environment:
-      - AMKEARAME_API_ID=${AMKEARAME_API_ID}
-      - AMKEARAME_API_HASH=${AMKEARAME_API_HASH}
-      - AMKEARAME_DELAY=${AMKEARAME_DELAY}
-    volumes:
-      - ./telegram.session:/app/telegram.session
+      - TELEGRAM_PROFILELESS_API_ID
+      - TELEGRAM_PROFILELESS_API_HASH
+    restart: unless-stopped
+
+  updater:
+    build:
+      context: .
+    command: python updater.py
+    environment:
+      - TELEGRAM_PROFILELESS_API_ID
+      - TELEGRAM_PROFILELESS_API_HASH
+      - TELEGRAM_PROFILELESS_API_SESSION
+      - TELEGRAM_PROFILELESS_PROVIDER
+      - TELEGRAM_PROFILELESS_INTERVAL
