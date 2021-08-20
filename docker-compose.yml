@@ -8,7 +8,6 @@ services:
     environment:
       - TELEGRAM_PROFILELESS_API_ID
       - TELEGRAM_PROFILELESS_API_HASH
-    restart: unless-stopped
 
   updater:
     build:
@@ -20,3 +19,4 @@ services:
       - TELEGRAM_PROFILELESS_API_SESSION
       - TELEGRAM_PROFILELESS_PROVIDER
       - TELEGRAM_PROFILELESS_INTERVAL
+    restart: unless-stopped
