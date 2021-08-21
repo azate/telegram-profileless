@@ -1,8 +1,8 @@
 import asyncio
 import random
+from aiohttp import ClientSession
 from dataclasses import dataclass
 from envargparse import EnvArgParser
-from fethers import fetch_image_human_fake, fetch_image_cat_fake, fetch_image_art_fake
 from names import get_first_name, get_last_name
 from telethon import TelegramClient
 from telethon.sessions import StringSession
@@ -24,24 +24,36 @@ class Profile:
 
 
 async def create_profile_art_fake() -> Profile:
+    async with ClientSession() as session:
+        async with session.get(url='https://thisartworkdoesnotexist.com') as response:
+            image = await response.read()
+
     return Profile(
-        image=await fetch_image_art_fake(),
+        image=image,
         first_name=get_first_name(),
         last_name=get_last_name(),
     )
 
 
 async def create_profile_cat_fake() -> Profile:
+    async with ClientSession() as session:
+        async with session.get(url='https://thiscatdoesnotexist.com') as response:
+            image = await response.read()
+
     return Profile(
-        image=await fetch_image_cat_fake(),
+        image=image,
         first_name=get_first_name(),
         last_name=get_last_name(),
     )
 
 
 async def create_profile_human_fake() -> Profile:
+    async with ClientSession() as session:
+        async with session.get(url='https://thispersondoesnotexist.com/image') as response:
+            image = await response.read()
+
     return Profile(
-        image=await fetch_image_human_fake(),
+        image=image,
         first_name=get_first_name(),
         last_name=get_last_name(),
     )
@@ -66,6 +78,8 @@ async def create_profile(provider: str) -> Profile:
 
 async def run(api_id: int, api_hash: str, api_session: str, provider: str, interval: int):
     while True:
+        profile = await create_profile(provider=provider)
+
         await asyncio.sleep(interval)
 
         client = TelegramClient(
@@ -75,8 +89,6 @@ async def run(api_id: int, api_hash: str, api_session: str, provider: str, inter
         )
 
         async with client:
-            profile = await create_profile(provider=provider)
-
             request_delete_photos = DeletePhotosRequest(id=await client.get_profile_photos('me'))
             await client(request=request_delete_photos)
 
