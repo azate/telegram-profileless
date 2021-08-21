@@ -3,8 +3,7 @@ login:
 	docker-compose run get_session
 
 run:
-	docker-compose build
-	docker-compose run updater
+	docker-compose up -d --build updater
 
 stop:
 	docker-compose stop updater
