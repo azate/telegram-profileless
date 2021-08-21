@@ -64,7 +64,7 @@ async def create_profile(provider: str) -> Profile:
         raise ValueError('Not found provider: {provider}.'.format(provider=provider))
 
 
-async def main(api_id: int, api_hash: str, api_session: str, provider: str, interval: int):
+async def run(api_id: int, api_hash: str, api_session: str, provider: str, interval: int):
     while True:
         await asyncio.sleep(interval)
 
@@ -101,7 +101,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    asyncio.run(main(
+    asyncio.run(run(
         api_id=args.api_id,
         api_hash=args.api_hash,
         api_session=args.api_session,
