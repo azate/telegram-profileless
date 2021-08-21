@@ -35,12 +35,11 @@ TELEGRAM_PROFILELESS_API_HASH=<api_hash>
 make login
 ```
 
-Insert the resulting string ```.env```
+Insert the resulting string in ```.env```
 
 ```dotenv
 TELEGRAM_PROFILELESS_API_SESSION=<string>
 ```
-
 
 ### Set other env variables
 
