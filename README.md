@@ -22,7 +22,12 @@ Follow the [instructions](https://core.telegram.org/api/obtaining_api_id#obtaini
 
 ### Set env variables
 
-Received ```api_id``` and ```api_hash``` set match ```TELEGRAM_PROFILELESS_API_ID``` and ```TELEGRAM_PROFILELESS_API_HASH``` in ```.env```
+Received ```api_id``` and ```api_hash``` set in ```.env```
+
+```dotenv
+TELEGRAM_PROFILELESS_API_ID=<api_id>
+TELEGRAM_PROFILELESS_API_HASH=<api_hash>
+```
 
 ### Get session
 
@@ -30,7 +35,12 @@ Received ```api_id``` and ```api_hash``` set match ```TELEGRAM_PROFILELESS_API_I
 make login
 ```
 
-Insert the resulting string in ```TELEGRAM_PROFILELESS_API_SESSION``` in ```.env```
+Insert the resulting string ```.env```
+
+```dotenv
+TELEGRAM_PROFILELESS_API_SESSION=<string>
+```
+
 
 ### Set other env variables
 
