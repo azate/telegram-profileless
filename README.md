@@ -4,6 +4,7 @@ This utility allows you to update your profile information, photo, name, surname
 
 # Requirements
 
+- Linux
 - make ~4.3
 - docker ~20.10
 - docker-compose ~1.29
