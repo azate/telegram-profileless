@@ -124,7 +124,7 @@ if __name__ == '__main__':
     parser.add_argument('--api-id', env_var='TELEGRAM_PROFILELESS_API_ID', required=True, help='Telegram API ID', type=int)
     parser.add_argument('--api-hash', env_var='TELEGRAM_PROFILELESS_API_HASH', required=True, help='Telegram API hash', type=str)
     parser.add_argument('--api-session', env_var='TELEGRAM_PROFILELESS_API_SESSION', required=True, help='Telegram session', type=str)
-    parser.add_argument('--provider', env_var='TELEGRAM_PROFILELESS_PROVIDER', required=True, help='Profile provider (art-fake|cat-fake|human-fake|space|random)', type=str)
+    parser.add_argument('--provider', env_var='TELEGRAM_PROFILELESS_PROVIDER', required=True, help='Profile provider', type=str)
     parser.add_argument('--interval', env_var='TELEGRAM_PROFILELESS_INTERVAL', required=False, help='Profile update interval', type=int, default=10)
 
     args = parser.parse_args()
