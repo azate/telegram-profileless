@@ -12,6 +12,7 @@ from telethon.tl.functions.photos import DeletePhotosRequest, UploadProfilePhoto
 PROVIDER_ART_FAKE = 'art-fake'
 PROVIDER_CAT_FAKE = 'cat-fake'
 PROVIDER_HUMAN_FAKE = 'human-fake'
+PROVIDER_SPACE = 'space'
 PROVIDER_RANDOM = 'random'
 
 
@@ -59,18 +60,33 @@ async def create_profile_human_fake() -> Profile:
     )
 
 
+async def create_profile_space() -> Profile:
+    async with ClientSession() as session:
+        async with session.get(url='https://source.unsplash.com/featured/?space') as response:
+            image = await response.read()
+
+    return Profile(
+        image=image,
+        first_name=get_first_name(),
+        last_name=get_last_name(),
+    )
+
+
 async def create_profile(provider: str) -> Profile:
     if provider == PROVIDER_ART_FAKE:
         return await create_profile_art_fake()
     elif provider == PROVIDER_CAT_FAKE:
         return await create_profile_cat_fake()
-    if provider == PROVIDER_HUMAN_FAKE:
+    elif provider == PROVIDER_HUMAN_FAKE:
         return await create_profile_human_fake()
+    elif provider == PROVIDER_SPACE:
+        return await create_profile_space()
     elif provider == PROVIDER_RANDOM:
         return await create_profile(random.choice([
             PROVIDER_ART_FAKE,
             PROVIDER_CAT_FAKE,
             PROVIDER_HUMAN_FAKE,
+            PROVIDER_SPACE,
         ]))
     else:
         raise ValueError('Not found provider: {provider}.'.format(provider=provider))
@@ -108,7 +124,7 @@ if __name__ == '__main__':
     parser.add_argument('--api-id', env_var='TELEGRAM_PROFILELESS_API_ID', required=True, help='Telegram API ID', type=int)
     parser.add_argument('--api-hash', env_var='TELEGRAM_PROFILELESS_API_HASH', required=True, help='Telegram API hash', type=str)
     parser.add_argument('--api-session', env_var='TELEGRAM_PROFILELESS_API_SESSION', required=True, help='Telegram session', type=str)
-    parser.add_argument('--provider', env_var='TELEGRAM_PROFILELESS_PROVIDER', required=True, help='Profile provider (art-fake|cat-fake|human-fake|random)', type=str)
+    parser.add_argument('--provider', env_var='TELEGRAM_PROFILELESS_PROVIDER', required=True, help='Profile provider (art-fake|cat-fake|human-fake|space|random)', type=str)
     parser.add_argument('--interval', env_var='TELEGRAM_PROFILELESS_INTERVAL', required=False, help='Profile update interval', type=int, default=10)
 
     args = parser.parse_args()
