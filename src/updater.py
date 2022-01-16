@@ -9,6 +9,7 @@ from telethon.sessions import StringSession
 from telethon.tl.functions.account import UpdateProfileRequest
 from telethon.tl.functions.photos import DeletePhotosRequest, UploadProfilePhotoRequest
 
+PROVIDER_ARTS_CULTURE = 'arts-culture'
 PROVIDER_CAT_FAKE = 'cat-fake'
 PROVIDER_HUMAN_FAKE = 'human-fake'
 PROVIDER_SPACE = 'space'
@@ -21,6 +22,18 @@ class Profile:
     first_name: str
     last_name: str = None
     about: str = None
+
+
+async def create_profile_arts_culture() -> Profile:
+    async with ClientSession() as session:
+        async with session.get(url='https://source.unsplash.com/featured/?arts-culture') as response:
+            image = await response.read()
+
+    return Profile(
+        image=image,
+        first_name=get_first_name(),
+        last_name=get_last_name(),
+    )
 
 
 async def create_profile_cat_fake() -> Profile:
@@ -60,7 +73,9 @@ async def create_profile_space() -> Profile:
 
 
 async def create_profile(provider: str) -> Profile:
-    if provider == PROVIDER_CAT_FAKE:
+    if provider == PROVIDER_ARTS_CULTURE:
+        return await create_profile_arts_culture()
+    elif provider == PROVIDER_CAT_FAKE:
         return await create_profile_cat_fake()
     elif provider == PROVIDER_HUMAN_FAKE:
         return await create_profile_human_fake()
@@ -68,6 +83,7 @@ async def create_profile(provider: str) -> Profile:
         return await create_profile_space()
     elif provider == PROVIDER_RANDOM:
         return await create_profile(random.choice([
+            PROVIDER_ARTS_CULTURE,
             PROVIDER_CAT_FAKE,
             PROVIDER_HUMAN_FAKE,
             PROVIDER_SPACE,
